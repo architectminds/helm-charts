@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  aws-ecr-credential:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2019-08-08T22:39:39.272996727+02:00"
+    description: A Helm chart for Kubernetes to allow docker pull from AWS registry
+      through imagePullSecrets
+    digest: 7998c7136e364489a9a7bc9f18761979cae64cbfa47f726692115a558531cd94
+    name: aws-ecr-credential
+    urls:
+    - aws-ecr-credential-0.1.0.tgz
+    version: 0.1.0
+generated: "2019-08-08T22:39:39.270791907+02:00"

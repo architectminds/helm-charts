@@ -1,0 +1,53 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.jobName }}
+  namespace: {{ .Values.namespace }}
+spec:
+  backoffLimit: 4
+  template:
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount }}
+      terminationGracePeriodSeconds: 0
+      restartPolicy: Never
+      containers:
+      - name: kubectl
+        imagePullPolicy: IfNotPresent
+        image: architectminds/aws-kubectl:latest
+        env:
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.aws_ecr_user_secret }}
+                key: AWS_ACCESS_KEY_ID
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.aws_ecr_user_secret }}
+                key: AWS_SECRET_ACCESS_KEY
+        command:
+        - "/bin/sh"
+        - "-c"
+        - |
+          AWS_ACCOUNT={{ .Values.aws.account }}
+          AWS_REGION={{ .Values.aws.region }}
+          echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
+          echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
+          echo "AWS_ACCOUNT=$AWS_ACCOUNT"
+          echo "AWS_REGION=$AWS_REGION"
+          DOCKER_REGISTRY_SERVER=https://${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com
+          DOCKER_USER=AWS
+          DOCKER_PASSWORD=`aws ecr get-login --region ${AWS_REGION} --registry-ids ${AWS_ACCOUNT} | cut -d' ' -f6`
+
+          echo "DOCKER_REGISTRY_SERVER=$DOCKER_REGISTRY_SERVER"
+          echo "DOCKER_USER=$DOCKER_USER"
+          echo "DOCKER_PASSWORD=$DOCKER_PASSWORD"
+
+          kubectl delete secret --namespace default aws-registry || true
+          kubectl create secret --namespace default docker-registry aws-registry \
+          --docker-server=$DOCKER_REGISTRY_SERVER \
+          --docker-username=$DOCKER_USER \
+          --docker-password=$DOCKER_PASSWORD \
+          --docker-email=no@email.local
+
+          kubectl patch serviceaccount default -p '{"imagePullSecrets":[{"name":"aws-registry"}]}'
