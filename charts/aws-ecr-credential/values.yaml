@@ -1,13 +1,6 @@
-namespace: aws-registry-credential-namespace
-jobName: aws-registry-credential-job
-cronJobName: aws-registry-credential-cron
-serviceAccount: aws-registry-credential-account
-
-aws_ecr_user_secret: aws-ecr-user
-
 aws:
   account: ""
   region: ""
-  AWS_ACCESS_KEY_ID: ""        # base64
-  AWS_SECRET_ACCESS_KEY: ""    # base64
+  accessKeyId: ""        # base64
+  secretAccessKey: ""    # base64
 

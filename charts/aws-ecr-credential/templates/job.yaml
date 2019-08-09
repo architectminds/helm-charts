@@ -1,13 +1,13 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ .Values.jobName }}
-  namespace: {{ .Values.namespace }}
+  name: {{ include "aws-ecr-credential.job" . }}
+  namespace: {{ include "aws-ecr-credential.namespace" . }}
 spec:
   backoffLimit: 4
   template:
     spec:
-      serviceAccountName: {{ .Values.serviceAccount }}
+      serviceAccountName: {{ include "aws-ecr-credential.serviceAccount" . }}
       terminationGracePeriodSeconds: 0
       restartPolicy: Never
       containers:
@@ -18,12 +18,12 @@ spec:
           - name: AWS_ACCESS_KEY_ID
             valueFrom:
               secretKeyRef:
-                name: {{ .Values.aws_ecr_user_secret }}
+                name: {{ include "aws-ecr-credential.secret" . }}
                 key: AWS_ACCESS_KEY_ID
           - name: AWS_SECRET_ACCESS_KEY
             valueFrom:
               secretKeyRef:
-                name: {{ .Values.aws_ecr_user_secret }}
+                name: {{ include "aws-ecr-credential.secret" . }}
                 key: AWS_SECRET_ACCESS_KEY
         command:
         - "/bin/sh"
