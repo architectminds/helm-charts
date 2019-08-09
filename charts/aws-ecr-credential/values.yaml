@@ -6,7 +6,8 @@ serviceAccount: aws-registry-credential-account
 aws_ecr_user_secret: aws-ecr-user
 
 aws:
-  account:
-  region:
-  AWS_ACCESS_KEY_ID:
-  AWS_SECRET_ACCESS_KEY:
+  account: ""
+  region: ""
+  AWS_ACCESS_KEY_ID: ""        # base64
+  AWS_SECRET_ACCESS_KEY: ""    # base64
+
