@@ -48,8 +48,8 @@ spec:
               echo "DOCKER_USER=$DOCKER_USER"
               echo "DOCKER_PASSWORD=$DOCKER_PASSWORD"
 
-              kubectl delete secret --namespace default aws-registry || true
-              kubectl create secret --namespace default docker-registry aws-registry \
+              kubectl delete secret --namespace {{ .Values.targetNamespace }} aws-registry || true
+              kubectl create secret --namespace {{ .Values.targetNamespace }} docker-registry aws-registry \
               --docker-server=$DOCKER_REGISTRY_SERVER \
               --docker-username=$DOCKER_USER \
               --docker-password=$DOCKER_PASSWORD \

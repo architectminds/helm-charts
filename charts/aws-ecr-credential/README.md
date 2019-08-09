@@ -10,6 +10,7 @@ helm install --name aws-ecr-credential architectminds/aws-ecr-credential \
   --set-string aws.account=343370379739 \
   --set aws.region=us-east-2 \
   --set aws.accessKeyId=<base64> \
-  --set aws.secretAccessKey=<base64>
+  --set aws.secretAccessKey=<base64> \
+  --set targetNamespace=default
 ```
 

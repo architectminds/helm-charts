@@ -1,3 +1,10 @@
+# targetNamespace is where the aws-registry secret will be created and maintained
+targetNamespace: default
+
+# aws.account is the aws account number of the ECR (string)
+# aws.region is the aws region where the ECR exists
+# aws.accessKeyId is the credential of a read-only user for the ECR
+# aws.secretAccessKey is the credential of a read-only user for the ECR
 aws:
   account: ""
   region: ""
