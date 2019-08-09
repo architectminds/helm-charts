@@ -23,7 +23,7 @@ spec:
           containers:
           - name: kubectl
             imagePullPolicy: IfNotPresent
-            image: architectminds/aws-kubectl:latest
+            image: {{ .Values.jobImage }}:{{ .Values.jobImageTag }}
             env:
               - name: AWS_ACCESS_KEY_ID
                 valueFrom:
