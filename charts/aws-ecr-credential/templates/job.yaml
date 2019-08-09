@@ -3,9 +3,14 @@ kind: Job
 metadata:
   name: {{ include "aws-ecr-credential.job" . }}
   namespace: {{ include "aws-ecr-credential.namespace" . }}
+  labels:
+{{ include "aws-ecr-credential.labels" . | indent 4 }}
 spec:
   backoffLimit: 4
   template:
+    metadata:
+      labels:
+{{ include "aws-ecr-credential.podLabels" . | indent 8 }}
     spec:
       serviceAccountName: {{ include "aws-ecr-credential.serviceAccount" . }}
       terminationGracePeriodSeconds: 0

@@ -2,8 +2,20 @@ apiVersion: v1
 entries:
   aws-ecr-credential:
   - apiVersion: v1
+    appVersion: 1.3.0
+    created: "2019-08-09T11:51:25.151282572+02:00"
+    description: A Helm chart for Kubernetes to allow docker pull from AWS registry
+      through imagePullSecrets
+    digest: 91c8f9bccdbb68e7526ee352c5a5652118976653fce0a009327475000c24db71
+    name: aws-ecr-credential
+    sources:
+    - https://github.com/architectminds/helm-charts/tree/master/charts/aws-ecr-credential
+    urls:
+    - aws-ecr-credential-1.3.0.tgz
+    version: 1.3.0
+  - apiVersion: v1
     appVersion: 1.2.0
-    created: "2019-08-09T11:30:49.073973085+02:00"
+    created: "2019-08-09T11:51:25.149846434+02:00"
     description: A Helm chart for Kubernetes to allow docker pull from AWS registry
       through imagePullSecrets
     digest: ed529e39ee145b477f23a7f706ae5587396742e66098b47cc8fc4a4de3e9c6d2
@@ -15,7 +27,7 @@ entries:
     version: 1.2.0
   - apiVersion: v1
     appVersion: 1.1.0
-    created: "2019-08-09T11:30:49.072621125+02:00"
+    created: "2019-08-09T11:51:25.148082321+02:00"
     description: A Helm chart for Kubernetes to allow docker pull from AWS registry
       through imagePullSecrets
     digest: 1aa13e928ec6afd669c9415d1d72694328ea48daf688b7ec2a6a2994abad3e36
@@ -27,7 +39,7 @@ entries:
     version: 1.1.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-09T11:30:49.070625532+02:00"
+    created: "2019-08-09T11:51:25.146448649+02:00"
     description: A Helm chart for Kubernetes to allow docker pull from AWS registry
       through imagePullSecrets
     digest: d349ac2ff44664789c0699149ed2690e7fde6e7e5e3c49f8151392e6e91a7bbe
@@ -37,4 +49,4 @@ entries:
     urls:
     - aws-ecr-credential-0.1.0.tgz
     version: 0.1.0
-generated: "2019-08-09T11:30:49.068930028+02:00"
+generated: "2019-08-09T11:51:25.144384925+02:00"

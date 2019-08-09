@@ -3,6 +3,8 @@ kind: CronJob
 metadata:
   name: {{ include "aws-ecr-credential.cronJob" . }}
   namespace: {{ include "aws-ecr-credential.namespace" . }}
+  labels:
+{{ include "aws-ecr-credential.labels" . | indent 4 }}
 spec:
   schedule: "* */8 * * *"
   successfulJobsHistoryLimit: 2
@@ -11,6 +13,9 @@ spec:
     spec:
       backoffLimit: 4
       template:
+        metadata:
+          labels:
+{{ include "aws-ecr-credential.podLabels" . | indent 12 }}
         spec:
           serviceAccountName: {{ include "aws-ecr-credential.serviceAccount" . }}
           terminationGracePeriodSeconds: 0
