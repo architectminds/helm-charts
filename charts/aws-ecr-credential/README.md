@@ -34,10 +34,3 @@ spec:
         - name: node
           image: node:latest
 ```
-
-# Advanced
-
-This chart puts `aws-registry` secret in `default` namespace. You can configure the target namespace by setting `targetNamespace` value. Example:
-
-```sh
-```
