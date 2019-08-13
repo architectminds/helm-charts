@@ -2,6 +2,24 @@ apiVersion: v1
 entries:
   aws-ecr-credential:
   - apiVersion: v1
+    appVersion: 1.4.1
+    created: "2019-08-13T20:57:26.440720964+02:00"
+    description: This Chart seemlessly integrate Kubernetes with AWS ECR
+    digest: a05dd8b56ffec525001e06fb3f956c8095bbfbfb6ce776a06feae19207fdbca9
+    keywords:
+    - aws ecr
+    - imagePullSecrets
+    - kubernetes
+    maintainers:
+    - email: me@meenaalfons.com
+      name: MeenaAlfons
+    name: aws-ecr-credential
+    sources:
+    - https://github.com/architectminds/helm-charts/tree/master/charts/aws-ecr-credential
+    urls:
+    - aws-ecr-credential-1.4.1.tgz
+    version: 1.4.1
+  - apiVersion: v1
     appVersion: 1.4.0
     created: "2019-08-09T12:09:27.44572186+02:00"
     description: A Helm chart for Kubernetes to allow docker pull from AWS registry
