@@ -1,0 +1,72 @@
+#! /bin/bash
+
+HELM_VERSION=v3.3.4
+
+function info() {
+  echo -e "\033[0;32m$1\033[0m"
+}
+
+function warn() {
+  echo -e "\033[0;93m$1\033[0m"
+}
+
+function error() {
+  echo -e "\033[0;91m$1\033[0m" >&2
+}
+
+function install::helm() {
+  info "[Install] helm"
+  local platform=$(uname | tr '[:upper:]' '[:lower:]')
+  wget -O helm.tgz https://get.helm.sh/helm-${HELM_VERSION}-${platform}-amd64.tar.gz
+  tar zxvf helm.tgz; mv ${platform}-amd64/* /usr/bin/; rm -f helm.tgz
+}
+
+function install::chartpress() {
+  info "[Install] chartpress"
+  python3 -m venv .venv
+  source .venv/bin/activate
+  pip install --upgrade pip
+  pip install -r requirements.txt
+}
+
+if ! command -v helm; then
+  warn "No helm installed"
+  install::helm
+fi
+
+if ! command -v chartpress; then
+  warn "No chartpress installed"
+  install::chartpress
+fi
+
+info "[CI] Setup build environment"
+CHART_NAME=aws-ecr-credential
+CHART_VERSION=${CHART_VERSION}
+pushd charts/aws-ecr-credential
+ln -nfs ../${CHART_NAME} ${CHART_NAME}
+
+# show variables
+export
+
+if [ "$CI_PUBLISH_KEY" != "" ]; then
+  echo $CI_PUBLISH_KEY > ~/.ssh/id_rsa 600
+  cat > ~/.ssh/config <<EOF
+Host *
+  IdentitiesOnly yes
+
+Host github.com
+  IdentitiesOnly no
+  IdentityFile ~/.ssh/id_rsa
+EOF
+
+  # clean up previous sessions
+  ssh-add -D
+
+  # configure publish author
+  git config --global user.email "ci@infuseai.io"
+  git config --global user.name "Github Actions"
+fi
+
+# publish chart
+info "[Chartpress] Build package ${CHART_NAME} version: $CI_COMMIT_TAG "
+

@@ -1,0 +1,5 @@
+charts:
+  - name: aws-ecr-credential
+    repo:
+      git: InfuseAI/helm-chart
+      published: https://charts.infuseai.io/
