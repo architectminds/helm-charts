@@ -6,7 +6,7 @@ metadata:
   labels:
 {{ include "aws-ecr-credential.labels" . | indent 4 }}
 spec:
-  schedule: "0 */8 * * *"
+  schedule: "* */8 * * *"
   successfulJobsHistoryLimit: 2
   failedJobsHistoryLimit: 2  
   jobTemplate:
