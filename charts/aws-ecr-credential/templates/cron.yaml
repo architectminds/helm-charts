@@ -1,4 +1,4 @@
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: {{ include "aws-ecr-credential.cronJob" . }}
@@ -6,7 +6,7 @@ metadata:
   labels:
 {{ include "aws-ecr-credential.labels" . | indent 4 }}
 spec:
-  schedule: "* */8 * * *"
+  schedule: "0 */8 * * *"
   successfulJobsHistoryLimit: 2
   failedJobsHistoryLimit: 2  
   jobTemplate:
@@ -60,5 +60,4 @@ spec:
               --docker-password=$DOCKER_PASSWORD \
               --docker-email=no@email.local
 
-              kubectl patch serviceaccount default -p '{"imagePullSecrets":[{"name":"aws-registry"}]}'
-
+              kubectl patch serviceaccount --namespace {{ .Values.targetNamespace }} default -p '{"imagePullSecrets":[{"name":"aws-registry"}]}'
